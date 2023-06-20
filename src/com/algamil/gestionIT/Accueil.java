@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.text.MessageFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,7 +26,6 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.type.OrientationEnum;
 import net.sf.jasperreports.view.JasperViewer;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -38,10 +36,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  *
  * @author FaridMO
  */
+@SuppressWarnings({"unused","unchecked"})
 public final class Accueil extends javax.swing.JFrame {
     ResultSet res;
     static String SQL;
-    
+   
     String idB,table="postepc", colonnes="department,service,sector,typeH,name,hostname";
     String depart,service,sector,typeH,name,hostname;
     String[] colonne = {"department","service","sector","typeH","name","hostname"};
@@ -98,7 +97,7 @@ public final class Accueil extends javax.swing.JFrame {
         table();
     }
     
-    public void writeToExcell(JTable table, Path path) throws FileNotFoundException, IOException {
+    public void writeToExcell(JTable table, String path) throws FileNotFoundException, IOException {
             new WorkbookFactory();
             Workbook wb = new XSSFWorkbook(); //Excell workbook
             Sheet sheet = wb.createSheet(); //WorkSheet
@@ -695,7 +694,7 @@ public final class Accueil extends javax.swing.JFrame {
     private void toExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toExcelActionPerformed
         Desktop desktop = Desktop.getDesktop();
         File file = new File(pathFile.getText().toString());
-        Path path = Path.of( pathFile.getText().toString());
+        String path = pathFile.getText().toString();
         
         try {
             writeToExcell(maTable, path);
@@ -703,17 +702,14 @@ public final class Accueil extends javax.swing.JFrame {
                    desktop.open(file);
                 }
         } catch (IOException ex) {
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Créer un fichier excel d'abord !");
         }
-        
-        
 
-        
         
     }//GEN-LAST:event_toExcelActionPerformed
 
     private void saveBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBActionPerformed
-       openFile();
+            openFile();
     }//GEN-LAST:event_saveBActionPerformed
 
     private void searchB2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchB2ActionPerformed
@@ -741,16 +737,17 @@ public final class Accueil extends javax.swing.JFrame {
     }//GEN-LAST:event_searchB2KeyReleased
 
     private void viewJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewJActionPerformed
-        String reportpath = "C:\\Users\\FaridMO\\Documents\\NetBeansProjects\\GestIT\\report.jrxml";
-        
         try {
+            String reportpath = "C:\\Users\\FaridMO\\Documents\\NetBeansProjects\\GestIT\\report.jrxml";
             JasperReport jr = JasperCompileManager.compileReport(reportpath);
-            JasperPrint jp = JasperFillManager.fillReport(jr, null, dbConn());
-            JasperViewer.viewReport(jp);
-            closeConn();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(rootPane, ex);
+            JasperPrint jp = JasperFillManager.fillReport(jr,null,dbConn());
+            JasperViewer.viewReport(jp, false);
+            
+            //closeConn();
+        }catch (JRException ex) {
+            Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }//GEN-LAST:event_viewJActionPerformed
 
     /**

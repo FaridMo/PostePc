@@ -66,7 +66,7 @@
 		<band height="35" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="30" splitType="Stretch">
+		<band height="31" splitType="Stretch">
 			<staticText>
 				<reportElement x="-10" y="0" width="40" height="30" uuid="c7abce39-8bfc-47eb-840e-d0c592046b21"/>
 				<textElement textAlignment="Center">
@@ -117,7 +117,10 @@
 				<text><![CDATA[hostame]]></text>
 			</staticText>
 			<line>
-				<reportElement x="-20" y="20" width="600" height="1" uuid="d4221d83-7360-4e85-8be3-be4402544027"/>
+				<reportElement x="-10" y="0" width="580" height="1" uuid="d4221d83-7360-4e85-8be3-be4402544027"/>
+			</line>
+			<line>
+				<reportElement x="-10" y="22" width="579" height="1" uuid="d7943155-8860-4c9e-939a-34b2732145e1"/>
 			</line>
 		</band>
 	</columnHeader>
@@ -167,6 +170,6 @@
 		<band height="54" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="51" splitType="Stretch"/>
 	</summary>
 </jasperReport>

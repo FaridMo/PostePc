@@ -23,18 +23,16 @@ public class Configuration {
 
     /* Connexion à la base de données */
     public static Connection dbConn() {
-        
         try {
             Class.forName(JDBC_DRIVER);
             connection = DriverManager.getConnection(HOST_DB, USERNAME_DB, PASSWORD_DB);
-
-            // System.out.println("connexion Réussie");
-        } catch (ClassNotFoundException ex) {
-            // System.out.println("echec");
+           // System.out.println("connexion Réussie");
+        }catch (ClassNotFoundException ex) {
+           System.out.println("echec");
            Logger.getLogger(Configuration.class.getName()).log(Level.SEVERE, null, ex);
-           
         } catch (SQLException ex) {
             Logger.getLogger(Configuration.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("echec");
         }
         return connection;
     }
@@ -68,7 +66,6 @@ public class Configuration {
         String result = "";
         try {
             dbConn();
-
             statement = connection.createStatement();
             statement.executeUpdate(sql);
             result = sql;
